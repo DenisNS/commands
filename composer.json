@@ -1,0 +1,19 @@
+{
+    "name": "denisns/commands",
+    "description": "Package for creating and using custom commands",
+    "type": "library",
+    "license": "Apache-2.0",
+    "authors": [
+        {
+            "name": "DenisNS",
+            "email": "denis33-2010@mail.ru"
+        }
+    ],
+    "minimum-stability": "dev",
+    "autoload": {
+        "psr-4": {"DenisNS\\Command\\": "src/"}
+    },
+    "require": {
+        "php": ">=7.4"
+    }
+}
