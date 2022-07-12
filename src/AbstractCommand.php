@@ -1,6 +1,8 @@
 <?php
 namespace DenisNS\Commands;
 
+use DenisNS\Commands\Exceptions\BadInputException;
+
 abstract class AbstractCommand
 {
     protected string $description;
@@ -12,6 +14,7 @@ abstract class AbstractCommand
     public function __construct(string $input)
     {
        $this->input = $input;
+       $this->check();
     }
 
     public abstract function run();
@@ -92,6 +95,44 @@ abstract class AbstractCommand
 
         return false;
 
+    }
+
+    private function check()
+    {
+        $arguments = $this->getArgument();
+        $options = $this->getOption();
+
+        $diff_arguments = array_diff($arguments, $this->arguments);
+        if (($key = array_search('help', $diff_arguments)) !== false) {
+            unset($diff_arguments[$key]);
+        }
+
+        $diff_options = array_keys(array_diff_key($options, $this->options));
+
+        $error_value_options = [];
+        foreach ($options as $name => $option)
+        {
+            if (!in_array($name, $diff_options))
+            {
+                if (is_array($option))
+                {
+                    $errors = array_diff($option, $this->options[$name]);
+                    if (count($errors) > 0)
+                        $error_value_options[] = $name;
+                }
+                else
+                {
+                    if ($this->options[$name] !== $option)
+                        $error_value_options[] = $name;
+                }
+            }
+        }
+        if (count($diff_arguments) > 0
+            || count($error_value_options) > 0
+            || count($diff_options) > 0)
+        {
+            throw new BadInputException($diff_arguments, $diff_options, $error_value_options);
+        }
     }
 
     public function help()
