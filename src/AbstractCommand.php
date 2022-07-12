@@ -39,7 +39,11 @@ abstract class AbstractCommand
                 $option_value = $explode_item[1];
                 if (stripos($item,'{') > 0)
                     $option_value = explode(',', str_replace('{', '', str_replace('}', '', $option_value)));
-                $options[$option_name] = $option_value;
+                if (array_key_exists($option_name,$options))
+                    $options[$option_name][] = $option_value;
+                else
+                    $options[$option_name][] = $option_value;
+
             }
 
             if (!is_null($option))
