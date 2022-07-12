@@ -20,7 +20,7 @@ abstract class AbstractCommand
         }
         catch (BadInputException $e)
         {
-            echo($e->getErrorMessage);
+            echo($e->getErrorMessage());
         }
     }
 
