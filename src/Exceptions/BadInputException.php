@@ -2,9 +2,7 @@
 
 namespace DenisNS\Commands\Exceptions;
 
-use mysql_xdevapi\Exception;
-
-class BadInputException extends Exception
+class BadInputException extends \Exception
 {
     private array $arguments, $options, $options_value;
 
