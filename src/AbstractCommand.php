@@ -1,5 +1,5 @@
 <?php
-namespace DenisNS\Command;
+namespace DenisNS\Commands;
 
 abstract class AbstractCommand
 {

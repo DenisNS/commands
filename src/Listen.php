@@ -1,24 +1,53 @@
 <?php
 
-namespace DenisNS\Command;
+namespace DenisNS\Commands;
 
 class Listen
 {
-    protected array $args;
-    protected string $command;
-    protected string $signature;
+    private array $args;
+    private string $command;
+    private string $signature = '';
 
 
     public function __construct(array $args)
     {
         $this->args = $args;
-        $this->command = $this->args[1];
-        $this->signature = $this->setSignature(array_slice($this->args, 2));
+        if (count($args) > 1)
+        {
+            $this->command = $this->args[1];
+            $this->setSignature(array_slice($this->args, 2));
+        }
 
     }
 
-    private function setSignature(array $signature)
+    private function setSignature(array $args)
     {
-        var_dump($signature);
+        foreach ($args as $arg)
+        {
+            if (substr($arg, 0, 1) !== '['
+                && substr($arg, 0, 1) !== '{')
+            {
+                $this->signature .= '{'.$arg.'}';
+            }
+            else
+            {
+                $this->signature .= $arg;
+            }
+        }
+    }
+
+    public function getCommandName()
+    {
+        $commandName = '';
+        foreach (explode('_', $this->command) as $word)
+        {
+            $commandName .= ucfirst(strtolower($word));
+        }
+        return $commandName;
+    }
+
+    public function getSignature()
+    {
+        return $this->signature;
     }
 }
