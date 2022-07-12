@@ -10,10 +10,9 @@ class BadInputException extends \Exception
         $this->options = $options;
         $this->options_value = $options_value;
         $this->arguments = $arguments;
-        $this->message = $this->setMessage();
     }
 
-    public function setMessage()
+    public function getErrorMessage()
     {
         $this->message = 'Error: ';
         if (count($this->arguments) > 0)

@@ -14,7 +14,14 @@ abstract class AbstractCommand
     public function __construct(string $input)
     {
        $this->input = $input;
-       $this->check();
+        try
+        {
+            $this->check();
+        }
+        catch (BadInputException $e)
+        {
+            echo($e->getErrorMessage);
+        }
     }
 
     public abstract function run();
