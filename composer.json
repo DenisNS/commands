@@ -11,7 +11,7 @@
     ],
     "minimum-stability": "stable",
     "autoload": {
-        "psr-4": {"DenisNS\\Command\\": "src/"}
+        "psr-4": {"DenisNS\\Commands\\": "src/"}
     },
     "require": {
         "php": ">=7.4"
