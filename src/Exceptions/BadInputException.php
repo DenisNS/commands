@@ -2,16 +2,28 @@
 
 namespace DenisNS\Commands\Exceptions;
 
+/**
+ * Исключение неверного ввода
+ */
 class BadInputException extends \Exception
 {
     private array $arguments, $options, $options_value;
 
+    /**
+     * @param array $arguments
+     * @param array $options
+     * @param array $options_value
+     */
     public function __construct(array $arguments = [], array $options = [], array $options_value = []) {
         $this->options = $options;
         $this->options_value = $options_value;
         $this->arguments = $arguments;
     }
 
+    /**
+     * Возвращает форматированню строку ошибки
+     * @return string
+     */
     public function getErrorMessage()
     {
         $this->message = "Error: \r\n";

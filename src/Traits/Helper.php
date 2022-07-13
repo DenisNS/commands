@@ -1,8 +1,17 @@
 <?php
 namespace DenisNS\Commands\Traits;
 
+/**
+ * Отвечает за показ всех сууществующих команд,
+ * при вызове приложения без команды
+ */
 trait Helper
 {
+    /**
+     * @param string $commands_dir путь до директории команд
+     * @param string $commands_namespace пространство имен в которм расположены команды
+     * @return void выводит подсказки работы каждой из команд
+     */
     public static function showHelpMessage(string $commands_dir, string $commands_namespace)
     {
         echo "This application have follow commands: \r\n";

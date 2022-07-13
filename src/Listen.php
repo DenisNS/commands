@@ -2,13 +2,22 @@
 
 namespace DenisNS\Commands;
 
+/**
+ * Класс для определения класса команды и
+ * передачи преобраотанного пользовательского ввода команде
+ */
 class Listen
 {
+    // пользовательский ввод
     private array $args;
+    // название класса команды
     private string $command;
+    // преобработанный пользовательский ввод
     private string $signature = '';
 
-
+    /**
+     * @param array $args
+     */
     public function __construct(array $args)
     {
         $this->args = $args;
@@ -19,6 +28,13 @@ class Listen
 
     }
 
+    /**
+     * Устанавливает
+     * преобработанный пользовательский ввод
+     * в переменнуую signature
+     * @param array $args
+     * @return void
+     */
     private function setSignature(array $args)
     {
         foreach ($args as $arg) {
@@ -31,6 +47,11 @@ class Listen
         }
     }
 
+    /**
+     * Возвращает
+     * имя класса команды
+     * @return string
+     */
     public function getCommandName()
     {
         $commandName = '';
@@ -40,6 +61,11 @@ class Listen
         return $commandName;
     }
 
+    /**
+     * Возвращает
+     * преобработанный пользовательский ввод
+     * @return string
+     */
     public function getSignature()
     {
         return $this->signature;

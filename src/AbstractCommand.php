@@ -3,14 +3,29 @@ namespace DenisNS\Commands;
 
 use DenisNS\Commands\Exceptions\BadInputException;
 
+/**
+ * Базовый класс команды
+ */
 abstract class AbstractCommand
 {
+    // описание команды
     protected string $description;
-
+    // пользовательский ввод
     protected string $input;
+    // название команды
     protected string $command;
+    /**
+     * аргументы и опции обрабатываемые командой
+     * @var array $arguments = []
+     * @var array $options = [name => [value1, ...],...]
+     */
     protected array $arguments, $options;
 
+    /**
+     * Метод конструктор
+     * $input = null только при использовании команды для показа подсказок
+     * @param string|null $input
+     */
     public function __construct(string $input = null)
     {
         if (!is_null($input)) {
@@ -24,8 +39,18 @@ abstract class AbstractCommand
         }
     }
 
+    /**
+     * Метод обработчик команды
+     */
     public abstract function run();
 
+    /**
+     * Проверка опций
+     * Возвращает массив опции со значениями либо false,
+     * если $option = null возвращает список всех опций
+     * @param string|null $option
+     * @return array|false|mixed
+     */
     protected function getOption(string $option = null)
     {
         $options = [];
@@ -75,6 +100,13 @@ abstract class AbstractCommand
         return false;
     }
 
+    /**
+     * Проверка аргументов
+     * Возвращает true либо false,
+     * если $argument = null возвращает список всех аргументов
+     * @param string|null $argument
+     * @return array|false|mixed
+     */
     protected function getArgument(string $argument = null)
     {
         $input = $this->input;
@@ -105,6 +137,12 @@ abstract class AbstractCommand
 
     }
 
+    /**
+     * Проверяет правильность ввода
+     * и присутствие ключевого слова help
+     * @return void
+     * @throws BadInputException
+     */
     private function check()
     {
         $arguments = $this->getArgument();
@@ -151,6 +189,10 @@ abstract class AbstractCommand
         }
     }
 
+    /**
+     * Выводит информацию о команде
+     * @return void
+     */
     public function help()
     {
         echo 'Command: '. $this->command. "\r\n";
