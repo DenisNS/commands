@@ -15,7 +15,7 @@ abstract class AbstractCommand
     {
         if (!is_null($input))
         {
-            $this->input = $input;
+            $this->input = str_replace(" ", '', $input);
             try
             {
                 $this->check();
@@ -23,6 +23,7 @@ abstract class AbstractCommand
             catch (BadInputException $e)
             {
                 echo($e->getErrorMessage());
+                die();
             }
         }
     }
@@ -33,7 +34,6 @@ abstract class AbstractCommand
     {
         $options = [];
         $input = $this->input;
-
         $input = substr($input, stripos($input, '[') + 1);
         $input = substr($input, 0, strrpos($input, ']'));
         $input = str_replace(' ', '',$input);
@@ -50,13 +50,18 @@ abstract class AbstractCommand
                 $explode_item = explode('=', $item);
                 $option_name = $explode_item[0];
                 $option_value = $explode_item[1];
+                if (!array_key_exists($option_name, $options))
+                    $options[$option_name] = [];
                 if (stripos($item,'{') > 0)
                     $option_value = explode(',', str_replace('{', '', str_replace('}', '', $option_value)));
-                if (array_key_exists($option_name, $options))
+                if (!is_array($option_value))
+                {
                     $options[$option_name][] = $option_value;
+                }
                 else
-                    $options[$option_name][] = $option_value;
-
+                {
+                    $options[$option_name] = array_unique(array_merge($option_value,$options[$option_name]));
+                }
             }
 
             if (!is_null($option))
