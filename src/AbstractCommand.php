@@ -11,16 +11,19 @@ abstract class AbstractCommand
     protected string $command;
     protected array $arguments, $options;
 
-    public function __construct(string $input)
+    public function __construct(string $input = null)
     {
-       $this->input = $input;
-        try
+        if (!is_null($input))
         {
-            $this->check();
-        }
-        catch (BadInputException $e)
-        {
-            echo($e->getErrorMessage());
+            $this->input = $input;
+            try
+            {
+                $this->check();
+            }
+            catch (BadInputException $e)
+            {
+                echo($e->getErrorMessage());
+            }
         }
     }
 

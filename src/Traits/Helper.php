@@ -1,5 +1,5 @@
 <?php
-trait helper
+trait Helper
 {
     public static function showHelpMessage(string $commands_dir, string $commands_namespace)
     {
@@ -13,7 +13,7 @@ trait helper
             $class = $commands_namespace . basename($file, '.php');
             if (class_exists($class))
             {
-                $obj = new $class;
+                $obj = new $class();
                 $obj->help();
             }
         }
