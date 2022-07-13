@@ -147,7 +147,7 @@ abstract class AbstractCommand
 
     public function help()
     {
-        echo 'Called command: '. $this->command. "\r\n";
+        echo 'Command: '. $this->command. "\r\n";
         echo 'Description: '. $this->description. "\r\n";
         echo "Arguments: \r\n";
         foreach ($this->arguments as $argument)
