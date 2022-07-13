@@ -112,31 +112,43 @@ abstract class AbstractCommand
         $arguments = $this->getArgument();
         $options = $this->getOption();
 
-        $diff_arguments = array_diff($arguments, $this->arguments);
-        if (($key = array_search('help', $diff_arguments)) !== false) {
-            unset($diff_arguments[$key]);
+        $diff_arguments = [];
+
+        if (is_array($arguments))
+        {
+            $diff_arguments = array_diff($arguments, $this->arguments);
+            if (($key = array_search('help', $diff_arguments)) !== false) {
+                unset($diff_arguments[$key]);
+                $this->help();
+            }
         }
 
-        $diff_options = array_keys(array_diff_key($options, $this->options));
-
+        $diff_options = [];
         $error_value_options = [];
-        foreach ($options as $name => $option)
+
+        if (is_array($options))
         {
-            if (!in_array($name, $diff_options))
+            $diff_options = array_keys(array_diff_key($options, $this->options));
+
+            foreach ($options as $name => $option)
             {
-                if (is_array($option))
+                if (!in_array($name, $diff_options))
                 {
-                    $errors = array_diff($option, $this->options[$name]);
-                    if (count($errors) > 0)
-                        $error_value_options[] = $name;
-                }
-                else
-                {
-                    if ($this->options[$name] !== $option)
-                        $error_value_options[] = $name;
+                    if (is_array($option))
+                    {
+                        $errors = array_diff($option, $this->options[$name]);
+                        if (count($errors) > 0)
+                            $error_value_options[] = $name;
+                    }
+                    else
+                    {
+                        if ($this->options[$name] !== $option)
+                            $error_value_options[] = $name;
+                    }
                 }
             }
         }
+
         if (count($diff_arguments) > 0
             || count($error_value_options) > 0
             || count($diff_options) > 0)
