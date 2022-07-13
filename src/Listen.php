@@ -12,8 +12,7 @@ class Listen
     public function __construct(array $args)
     {
         $this->args = $args;
-        if (count($args) > 1)
-        {
+        if (count($args) > 1) {
             $this->command = $this->args[1];
             $this->setSignature(array_slice($this->args, 2));
         }
@@ -22,15 +21,11 @@ class Listen
 
     private function setSignature(array $args)
     {
-        foreach ($args as $arg)
-        {
+        foreach ($args as $arg) {
             if (substr($arg, 0, 1) !== '['
-                && substr($arg, 0, 1) !== '{')
-            {
+                && substr($arg, 0, 1) !== '{') {
                 $this->signature .= '{'.$arg.'}';
-            }
-            else
-            {
+            } else {
                 $this->signature .= $arg;
             }
         }
@@ -39,8 +34,7 @@ class Listen
     public function getCommandName()
     {
         $commandName = '';
-        foreach (explode('_', $this->command) as $word)
-        {
+        foreach (explode('_', $this->command) as $word){
             $commandName .= ucfirst(strtolower($word));
         }
         return $commandName;
