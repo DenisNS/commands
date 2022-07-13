@@ -119,7 +119,7 @@ abstract class AbstractCommand
             $diff_arguments = array_diff($arguments, $this->arguments);
             if (($key = array_search('help', $diff_arguments)) !== false) {
                 unset($diff_arguments[$key]);
-                $this->help();
+                return $this->help();
             }
         }
 
