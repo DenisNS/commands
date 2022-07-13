@@ -1,5 +1,5 @@
 <?php
-trait Helper
+trait helper
 {
     public static function showHelpMessage(string $commands_dir, string $commands_namespace)
     {
