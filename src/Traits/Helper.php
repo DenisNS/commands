@@ -1,5 +1,7 @@
 <?php
-trait helper
+namespace DenisNS\Commands\Traits;
+
+trait Helper
 {
     public static function showHelpMessage(string $commands_dir, string $commands_namespace)
     {
