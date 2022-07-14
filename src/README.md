@@ -5,11 +5,11 @@
 3. Задать свойства таким образом:
 
 
-    protected string $description = "Описание команды";
-    protected string $command = 'название команды'; // в нижнем регистре разделитель "_" ,
-    //то есть класс _SomeCommand_, будет иметь название _some_command_
-    protected array $arguments = ['значение1','значение2','значение3',...];
-    protected array $options = ['название' => ['значение1', 'значение2',...],...]
+        protected string $description = "Описание команды";
+        protected string $command = 'название команды'; // в нижнем регистре разделитель "_" ,
+        //то есть класс _SomeCommand_, будет иметь название _some_command_
+        protected array $arguments = ['значение1','значение2','значение3',...];
+        protected array $options = ['название' => ['значение1', 'значение2',...],...]
 
 
 Создайте метод _run()_, метод обработчик
