@@ -161,12 +161,10 @@ abstract class AbstractCommand
         $diff_options = [];
         $error_value_options = [];
 
-        if (is_array($options))
-        {
+        if (is_array($options)) {
             $diff_options = array_keys(array_diff_key($options, $this->options));
 
-            foreach ($options as $name => $option)
-            {
+            foreach ($options as $name => $option) {
                 if (!in_array($name, $diff_options)) {
                     if (is_array($option)) {
                         $errors = array_diff($option, $this->options[$name]);
